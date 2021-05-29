@@ -23,43 +23,43 @@ function playRound(playerSelection = prompt('Pick rock, paper, or scissors: '), 
     if (playerSelection == 'rock' && sign == 'rock') {
         playerWin = false;
         computerWin = false;
-        return 'you tied';
+        console.log('you tied this round');
     } else if (playerSelection == 'rock' && sign == 'paper') {
         playerWin = false;
         computerWin = true;
-        return 'you lost, paper beats rock';
+        console.log('you lose this round, paper beats rock');
     } else if (playerSelection == 'rock' && sign == 'scissors') {
         playerWin = true;
         computerWin = false;
-        return 'you win, rock beats scissors';
+        console.log('you win this round, rock beats scissors');
     } else if (playerSelection == 'paper' && sign == 'rock') {
         playerWin = true;
         computerWin = false;
-        return 'you win, paper beats rock';
+        console.log('you win this round, paper beats rock');
     } else if (playerSelection == 'paper' && sign == 'paper') {
         playerWin = false;
         computerWin = false;
-        return 'you tied';
+        console.log('you tied this round');
     } else if (playerSelection == 'paper' && sign == 'scissors') {
         playerWin = false;
         computerWin = true;
-        return 'you lost, scissors beats paper';
+        console.log('you lose this round, scissors beats paper');
     } else if (playerSelection == 'scissors' && sign == 'rock') {
         playerWin = false;
         computerWin = true;
-        return 'you lost, rock beats scissors';
+        console.log('you lose this round, rock beats scissors');
     } else if (playerSelection == 'scissors' && sign == 'paper') {
         playerWin = true;
         computerWin = false;
-        return 'you win, scissors beats paper';
+        console.log('you win this round, scissors beats paper');
     } else if (playerSelection == 'scissors' && sign == 'scissors') {
         playerWin = false;
         computerWin = false;
-        return 'you tied';
+        console.log('you tied this round');
     } else {
         playerWin = false;
         computerWin = true;
-        return 'maybe spell rock, paper, or scissors correctly! you lose be default';      
+        console.log('maybe spell rock, paper, or scissors correctly! you lose this round by default');      
     }
 
 };
@@ -72,18 +72,18 @@ function game() {
         playRound();
         if (playerWin == true) {
             ++playerScore;
-            console.log('You won that round: ' + playerScore + '-' + computerScore);
+            console.log('Score: ' + playerScore + '-' + computerScore);
         } else if (computerWin == true) {
             ++computerScore;
-            console.log('You lost that round: ' + playerScore + '-' + computerScore);
+            console.log('Score: ' + playerScore + '-' + computerScore);
         } else {
-            console.log('You tied that round, no points added: ' + playerScore + '-' + computerScore)
+            console.log('Score: ' + playerScore + '-' + computerScore);
         }
     }
     if (playerScore > computerScore) {
         return `You win ${playerScore}-${computerScore}`;
     } else if (playerScore == computerScore) {
-        return `You tied ${playerScore}-${computerScore}`
+        return `You tied ${playerScore}-${computerScore}`;
     } else {
         return `You lose ${playerScore}-${computerScore}`;
     }
