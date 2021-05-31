@@ -14,81 +14,87 @@ function computerPlay() {
     }
 };
 
+// A results div that displays the results of each round
+const results = document.querySelector('.results');
+const para = document.createElement('p');
+const outCome = document.createElement('p');
+
 // the function will play a round of "rock paper scissors". It will allow input from the player and determine who won the round
 
-function playRound(playerSelection = prompt('Pick rock, paper, or scissors: '), computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
+let playerSelection;
+let playerScore = 0;
+let computerScore = 0;
+
+function playRound(playerSelection, computerSelection) {
     computerPlay();
 
     if (playerSelection == 'rock' && sign == 'rock') {
-        playerWin = false;
-        computerWin = false;
-        console.log('you tied this round');
+        para.textContent = `you tied this round: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'rock' && sign == 'paper') {
-        playerWin = false;
-        computerWin = true;
-        console.log('you lose this round, paper beats rock');
+        computerScore++;
+        para.textContent = `you lose this round, rock loses to paper: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'rock' && sign == 'scissors') {
-        playerWin = true;
-        computerWin = false;
-        console.log('you win this round, rock beats scissors');
+        playerScore++;
+        para.textContent = `you win this round, rock beats scissors: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'paper' && sign == 'rock') {
-        playerWin = true;
-        computerWin = false;
-        console.log('you win this round, paper beats rock');
+        playerScore++;
+        para.textContent = `you win this round, paper beats rock: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'paper' && sign == 'paper') {
-        playerWin = false;
-        computerWin = false;
-        console.log('you tied this round');
+        para.textContent = `you tied this round: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'paper' && sign == 'scissors') {
-        playerWin = false;
-        computerWin = true;
-        console.log('you lose this round, scissors beats paper');
+        computerScore++;
+        para.textContent = `you lose this round, paper loses to scissors: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'scissors' && sign == 'rock') {
-        playerWin = false;
-        computerWin = true;
-        console.log('you lose this round, rock beats scissors');
+        computerScore++;
+        para.textContent = `you lose this round, scissors loses to rock: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'scissors' && sign == 'paper') {
-        playerWin = true;
-        computerWin = false;
-        console.log('you win this round, scissors beats paper');
+        playerScore++;
+        para.textContent = `you win this round, scissors beats paper: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else if (playerSelection == 'scissors' && sign == 'scissors') {
-        playerWin = false;
-        computerWin = false;
-        console.log('you tied this round');
+        para.textContent = `you tied this round: ${playerScore}-${computerScore}`;
+        results.appendChild(para);
     } else {
-        playerWin = false;
-        computerWin = true;
-        console.log('maybe spell rock, paper, or scissors correctly! you lose this round by default');      
+        computerScore++;
+        para.textContent = `I guess the computer cheated, you lose this round: ${playerScore}-${computerScore}`;
+        results.appendChild(para);      
+    }
+    if (playerScore == 5 && playerScore > computerScore) {
+    outCome.textContent = `YOU WIN!!! ${playerScore}-${computerScore}`;
+    results.insertBefore(outCome, para);
+    } else if (computerScore == 5 && computerScore > playerScore) {
+    outCome.textContent = `THE COMPUTER WINS : ${playerScore}-${computerScore}`;
+    results.insertBefore(outCome, para);
     }
 
 };
 
-// a five round "rock, paper, scissors" game that keeps score and resets the previous score
-function game() {
-    let computerScore = 0;
-    let playerScore = 0;
-   for (i = 0; i < 5; i++) {
-        playRound();
-        if (playerWin == true) {
-            ++playerScore;
-            console.log('Score: ' + playerScore + '-' + computerScore);
-        } else if (computerWin == true) {
-            ++computerScore;
-            console.log('Score: ' + playerScore + '-' + computerScore);
-        } else {
-            console.log('Score: ' + playerScore + '-' + computerScore);
-        }
-    }
-    if (playerScore > computerScore) {
-        return `You win ${playerScore}-${computerScore}`;
-    } else if (playerScore == computerScore) {
-        return `You tied ${playerScore}-${computerScore}`;
-    } else {
-        return `You lose ${playerScore}-${computerScore}`;
-    }
-}
+// corresponding the buttons with the player's choice of rock paper or scissors
 
+const rock = document.querySelector('#rock');
 
+rock.addEventListener('click', function(e) {
+    playerSelection = 'rock';
+    playRound(playerSelection);
+})
 
-console.log(game());
+const paper = document.querySelector('#paper');
+
+paper.addEventListener('click', function(e) {
+    playerSelection = 'paper';
+    playRound(playerSelection);
+})
+
+const scissors = document.querySelector('#scissors');
+
+scissors.addEventListener('click', function(e) {
+    playerSelection = 'scissors';
+    playRound(playerSelection);
+})
