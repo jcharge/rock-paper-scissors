@@ -119,6 +119,7 @@ function playRound(playerSelection, computerSelection) {
         addComputerSelection()
     } else if (playerSelection == 'scissors' && sign == 'rock') {
         computerScore++;
+        addComputerSelection()
     } else if (playerSelection == 'scissors' && sign == 'paper') {
         playerScore++;
         addComputerSelection()
