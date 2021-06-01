@@ -19,8 +19,7 @@ const results = document.querySelector('#results');
 const para = document.createElement('p');
 const outCome = document.createElement('p');
 
-// the function will play a round of "rock paper scissors". It will allow input from the player and determine who won the round
-
+// global declarations for manipulating in other functions
 let playerSelection;
 let playerScore = 0;
 let computerScore = 0;
@@ -35,6 +34,21 @@ const compScore = document.createElement('p');
 compScore.textContent = `Computer: ${computerScore}`;
 computerScoreDiv.appendChild(compScore);
 
+// a reset button that resets the score
+const resetBtn = document.createElement('button');
+resetBtn.textContent = 'PLAY AGAIN';
+
+resetBtn.addEventListener('click', function(e) {
+    playerScore = 0;
+    computerScore = 0;
+    outCome.textContent = '';
+    results.removeChild(outCome);
+    results.removeChild(para);
+    results.removeChild(resetBtn);
+})
+
+// the function will play a round of "rock paper scissors". It runs off the images being clicked.
+// it also changes some variables
 function playRound(playerSelection, computerSelection) {
     computerPlay();
 
@@ -79,9 +93,11 @@ function playRound(playerSelection, computerSelection) {
     if (playerScore == 5 && playerScore > computerScore && outCome.textContent == '') {
     outCome.textContent = `YOU WIN!!! ${playerScore}-${computerScore}`;
     results.insertBefore(outCome, para);
+    results.insertBefore(resetBtn, para);
     } else if (computerScore == 5 && computerScore > playerScore && outCome.textContent == '') {
     outCome.textContent = `THE COMPUTER WINS : ${playerScore}-${computerScore}`;
     results.insertBefore(outCome, para);
+    results.insertBefore(resetBtn, para);
     }
 
     humanScore.textContent = `You: ${playerScore}`;
@@ -116,10 +132,13 @@ scissors.addEventListener('click', function(e) {
     playRound(playerSelection);
 })
 
+// a function for removing a class from a previously clicked image
 function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
     this.classList.remove('img-click')
 }
 
+// this event listens for a transitionend and runs the removeTransition function
 const selection = document.querySelectorAll('.selection');
 selection.forEach(selection => selection.addEventListener('transitionend', removeTransition))
+
