@@ -66,10 +66,10 @@ function playRound(playerSelection, computerSelection) {
         para.textContent = `I guess the computer cheated, you lose this round: ${playerScore}-${computerScore}`;
         results.appendChild(para);      
     }
-    if (playerScore == 5 && playerScore > computerScore) {
+    if (playerScore == 5 && playerScore > computerScore && outCome.textContent == '') {
     outCome.textContent = `YOU WIN!!! ${playerScore}-${computerScore}`;
     results.insertBefore(outCome, para);
-    } else if (computerScore == 5 && computerScore > playerScore) {
+    } else if (computerScore == 5 && computerScore > playerScore && outCome.textContent == '') {
     outCome.textContent = `THE COMPUTER WINS : ${playerScore}-${computerScore}`;
     results.insertBefore(outCome, para);
     }
