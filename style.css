@@ -1,5 +1,7 @@
 body {
     margin: 0px 1px;
+    height: 100vh;
+   
 }
 
 .intro {
@@ -43,7 +45,10 @@ body {
 .img-click {
     transform: scale(0.9);
 }
-
+.computer-image {
+    height: 150px;
+    width: 150px;
+}
 
 
 p {

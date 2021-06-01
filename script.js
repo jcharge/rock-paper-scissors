@@ -14,10 +14,55 @@ function computerPlay() {
     }
 };
 
+//functions for adding the computer's sign image on screen
+const computerRock = document.createElement('img')
+computerRock.src = 'images/computer-rock.jpg';
+computerRock.classList.add('computer-image');
+
+function addRockImage() {
+    if (results.firstChild) {
+        results.removeChild(results.firstChild);
+    }
+    results.appendChild(computerRock);
+}
+
+const computerPaper = document.createElement('img');
+computerPaper.src = 'images/computer-paper.jpg';
+computerPaper.classList.add('computer-image');
+
+function addPaperImage() {
+    if (results.firstChild) {
+        results.removeChild(results.firstChild);
+    }
+    results.appendChild(computerPaper);
+}
+
+const computerScissors = document.createElement('img');
+computerScissors.src = 'images/computer-scissors.jpg';
+computerScissors.classList.add('computer-image');
+
+function addScissorsImage() {
+    if (results.firstChild) {
+        results.removeChild(results.firstChild);
+    }
+    results.appendChild(computerScissors);
+}
+
+// a function that displays the computer's selection as an Image
+function addComputerSelection() {
+    if (sign == 'rock') {
+        addRockImage();
+    } else if (sign == 'paper') {
+        addPaperImage();
+    } else {
+        addScissorsImage();
+    }
+}
+
 // A results div that displays the results of each round
 const results = document.querySelector('#results');
-const para = document.createElement('p');
 const outCome = document.createElement('p');
+const intro = document.querySelector('.intro');
 
 // global declarations for manipulating in other functions
 let playerSelection;
@@ -26,15 +71,15 @@ let computerScore = 0;
 
 const humanScoreDiv = document.querySelector('#human-score');
 const humanScore = document.createElement('p');
-humanScore.textContent = `You: ${playerScore}`;
+humanScore.textContent = `Your score: ${playerScore}`;
 humanScoreDiv.appendChild(humanScore);
 
 const computerScoreDiv = document.querySelector('#computer-score');
 const compScore = document.createElement('p');
-compScore.textContent = `Computer: ${computerScore}`;
+compScore.textContent = `Computer score: ${computerScore}`;
 computerScoreDiv.appendChild(compScore);
 
-// a reset button that resets the score
+// a reset button that resets the score and removes text and itself off the screen
 const resetBtn = document.createElement('button');
 resetBtn.textContent = 'PLAY AGAIN';
 
@@ -42,9 +87,13 @@ resetBtn.addEventListener('click', function(e) {
     playerScore = 0;
     computerScore = 0;
     outCome.textContent = '';
-    results.removeChild(outCome);
-    results.removeChild(para);
-    results.removeChild(resetBtn);
+    results.removeChild(results.firstChild);
+    intro.removeChild(outCome)
+    intro.removeChild(resetBtn);
+    humanScore.textContent = `Your score: ${playerScore}`;
+    humanScoreDiv.appendChild(humanScore);
+    compScore.textContent = `Computer score: ${computerScore}`
+    computerScoreDiv.appendChild(compScore);
 })
 
 // the function will play a round of "rock paper scissors". It runs off the images being clicked.
@@ -53,56 +102,45 @@ function playRound(playerSelection, computerSelection) {
     computerPlay();
 
     if (playerSelection == 'rock' && sign == 'rock') {
-        para.textContent = `you tied this round`;
-        results.appendChild(para);
+        addComputerSelection()
     } else if (playerSelection == 'rock' && sign == 'paper') {
         computerScore++;
-        para.textContent = `you lose this round, rock loses to paper`;
-        results.appendChild(para);
+        addComputerSelection()
     } else if (playerSelection == 'rock' && sign == 'scissors') {
         playerScore++;
-        para.textContent = `you win this round, rock beats scissors`;
-        results.appendChild(para);
+        addComputerSelection()
     } else if (playerSelection == 'paper' && sign == 'rock') {
         playerScore++;
-        para.textContent = `you win this round, paper beats rock`;
-        results.appendChild(para);
+        addComputerSelection()
     } else if (playerSelection == 'paper' && sign == 'paper') {
-        para.textContent = `you tied this round`;
-        results.appendChild(para);
+        addComputerSelection()
     } else if (playerSelection == 'paper' && sign == 'scissors') {
         computerScore++;
-        para.textContent = `you lose this round, paper loses to scissors`;
-        results.appendChild(para);
+        addComputerSelection()
     } else if (playerSelection == 'scissors' && sign == 'rock') {
         computerScore++;
-        para.textContent = `you lose this round, scissors loses to rock`;
-        results.appendChild(para);
     } else if (playerSelection == 'scissors' && sign == 'paper') {
         playerScore++;
-        para.textContent = `you win this round, scissors beats paper`;
-        results.appendChild(para);
+        addComputerSelection()
     } else if (playerSelection == 'scissors' && sign == 'scissors') {
-        para.textContent = `you tied this round`;
-        results.appendChild(para);
+        addComputerSelection()
     } else {
-        computerScore++;
-        para.textContent = `I guess the computer cheated, you lose this round`;
-        results.appendChild(para);      
+        computerScore++;  
+        addComputerSelection()   
     }
     if (playerScore == 5 && playerScore > computerScore && outCome.textContent == '') {
     outCome.textContent = `YOU WIN!!! ${playerScore}-${computerScore}`;
-    results.insertBefore(outCome, para);
-    results.insertBefore(resetBtn, para);
+    intro.appendChild(outCome);
+    intro.appendChild(resetBtn);
     } else if (computerScore == 5 && computerScore > playerScore && outCome.textContent == '') {
     outCome.textContent = `THE COMPUTER WINS : ${playerScore}-${computerScore}`;
-    results.insertBefore(outCome, para);
-    results.insertBefore(resetBtn, para);
+    intro.appendChild(outCome);
+    intro.appendChild(resetBtn);
     }
 
-    humanScore.textContent = `You: ${playerScore}`;
+    humanScore.textContent = `Your score: ${playerScore}`;
     humanScoreDiv.appendChild(humanScore);
-    compScore.textContent = `Computer: ${computerScore}`
+    compScore.textContent = `Computer score: ${computerScore}`
     computerScoreDiv.appendChild(compScore);
 };
 
